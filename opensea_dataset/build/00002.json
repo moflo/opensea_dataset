@@ -1,0 +1,81 @@
+{
+  "name": "Runner #2",
+  "token_id": "2",
+  "image_url": "https://storage.opensea.io/files/2008421715b28821c9058620478dc907.svg",
+  "contract_address": "0x97597002980134bea46250aa0510c9b90d87a587",
+  "price": "4599.289999999999964000",
+  "traits": [
+    {
+      "trait_type": "Race  ",
+      "value": "Human ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 7745,
+      "order": null
+    },
+    {
+      "trait_type": "Mouth ",
+      "value": " Open Teeth ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 994,
+      "order": null
+    },
+    {
+      "trait_type": "Background  ",
+      "value": " Grey Solid ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 335,
+      "order": null
+    },
+    {
+      "trait_type": "Face  ",
+      "value": " Soul Patch Short ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 267,
+      "order": null
+    },
+    {
+      "trait_type": "Nose  ",
+      "value": " Downturned ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 1105,
+      "order": null
+    },
+    {
+      "trait_type": "Eyes  ",
+      "value": " Femme Furrowed Variant 1  ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 104,
+      "order": null
+    },
+    {
+      "trait_type": "Ear Accessory  ",
+      "value": " Small Hoop Earrings ",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 1240,
+      "order": null
+    },
+    {
+      "trait_type": "Eye Accessory  ",
+      "value": " Eye Patch Monocle",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 209,
+      "order": null
+    },
+    {
+      "trait_type": "Head Above  ",
+      "value": " Mystic Top Hat",
+      "display_type": null,
+      "max_value": null,
+      "trait_count": 76,
+      "order": null
+    }
+  ]
+}

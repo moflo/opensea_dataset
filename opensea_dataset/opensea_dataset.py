@@ -26,13 +26,14 @@ class opensea_dataset(tfds.core.GeneratorBasedBuilder):
     )
 
   def _split_generators(self, dl_manager: tfds.download.DownloadManager):
-    path = dl_manager.download_and_extract('https://s3.amazonaws.com/pytorch-tutorial-assets/img_align_celeba.zip')
+    # path = dl_manager.download_and_extract('https://s3.amazonaws.com/pytorch-tutorial-assets/img_align_celeba.zip')
+    path = os.path.dirname(__file__)
     return {
         'train': self._generate_examples(path),
     }
 
   def _generate_examples(self, path):
-    for f in path.glob('img_align_celeba/*.jpg'):
+    for f in path.glob('build/*.png'):
       image_id = os.path.basename(f).split('.')[0]
       key = random.getrandbits(256)
       record =  {
