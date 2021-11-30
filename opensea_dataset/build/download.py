@@ -7,24 +7,23 @@ Usage: download.py --name NAME --start 0 --end 10
 
 """
 
+from os import stat_result
 import re
 from absl import app
 from absl import flags
 import requests
 import cairosvg # https://cairosvg.org/documentation/
+import json
 
 flags.DEFINE_string('name', 'chain-runners-nft', 'The name of the Opensea NFT collection')
 flags.DEFINE_integer('start',0,'Starting collection item number',lower_bound=0)
-flags.DEFINE_integer('end',100,'Ending collection item number',lower_bound=1)
+flags.DEFINE_integer('end',10,'Ending collection item number',lower_bound=1)
 
 FLAGS = flags.FLAGS
 
-def main(_) -> None:
-    print(f'Create dataset from NFT collection: {FLAGS.name}')
-    print(f'  | Item range: [{FLAGS.start} - {FLAGS.end}]')
-
+def save_asset(index,collection) -> None:
     # Find NFT collection assets
-    url = f'https://api.opensea.io/api/v1/assets?order_direction=asc&offset=0&limit=1&collection={FLAGS.name}'
+    url = f'https://api.opensea.io/api/v1/assets?order_direction=asc&offset={index}&limit=1&collection={collection}'
 
     response = requests.request("GET", url)
     asset_data = response.json()
@@ -46,7 +45,7 @@ def main(_) -> None:
 
     print(f'NFT Name: {nft_name} [{token_id}]')
     print(f'  | URL: {image_url}')
-    print(f'  | traits: {traits_json}')
+    # print(f'  | traits: {traits_json}')
 
     # Find NFT asset current price, download 
     url = f'https://api.opensea.io/api/v1/asset/{contract_address}/{token_id}/'
@@ -59,8 +58,30 @@ def main(_) -> None:
 
     print(f'  | price: {nft_price}')
 
+    # Write JSON file
+    nft_json = {}
+    nft_json['name'] = nft_name
+    nft_json['token_id'] = token_id
+    nft_json['image_url'] = image_url
+    nft_json['contract_address'] = contract_address
+    nft_json['price'] = nft_price
+    nft_json['traits'] = traits_json
+    with open(f'./{token_id}.json', 'w') as outfile:
+        json.dump(nft_json, outfile)
+
     # Write PNG file
-    cairosvg.svg2png(url=image_url, write_to=f'./{token_id}.png')
+    cairosvg.svg2png(url=image_url, write_to=f'./{token_id}.png', scale=2)
+
+
+def main(_) -> None:
+    print(f'Create dataset from NFT collection: {FLAGS.name}')
+    print(f'  | Item range: [{FLAGS.start} - {FLAGS.end}]')
+
+    index = FLAGS.start
+    while index <= FLAGS.end:
+        save_asset(index,FLAGS.name)
+        index += 1
+
 
 if __name__ == '__main__':
   app.run(main)
