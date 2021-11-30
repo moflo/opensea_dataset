@@ -21,6 +21,38 @@ flags.DEFINE_integer('end',10,'Ending collection item number',lower_bound=1)
 
 FLAGS = flags.FLAGS
 
+
+def save_traits(collection) -> None:
+    # Find NFT collection assets
+    url = f'https://api.opensea.io/api/v1/collection/{collection}'
+
+    response = requests.request("GET", url)
+    collection_data = response.json()
+
+    # Collection traits, dictionary of dictionary
+    collection_traits = collection_data['collection']['traits']
+
+    # Collection name
+    collction_name = collection_data['collection']['name']
+
+    # Collection name
+    collction_url = collection_data['collection']['external_url']
+
+    # Collection name
+    collction_name = collection_data['collection']['name']
+
+    # Collection market cap
+    market_cap = collection_data['collection']['stats']['market_cap']
+
+    # Write JSON file
+    nft_json = {}
+    nft_json['name'] = collction_name
+    nft_json['market_cap'] = market_cap
+    nft_json['external_url'] = collction_url
+    nft_json['traits'] = collection_traits
+    with open(f'./{collection}.json', 'w') as outfile:
+        json.dump(nft_json, outfile)
+
 def save_asset(index,collection) -> None:
     # Find NFT collection assets
     url = f'https://api.opensea.io/api/v1/assets?order_direction=asc&offset={index}&limit=1&collection={collection}'
@@ -70,11 +102,15 @@ def save_asset(index,collection) -> None:
         json.dump(nft_json, outfile)
 
     # Write PNG file
-    cairosvg.svg2png(url=image_url, write_to=f'./{token_id}.png', scale=2)
+    cairosvg.svg2png(url=image_url, write_to=f'./{token_id}.png', parent_height=256, parent_width=256)
 
 
 def main(_) -> None:
     print(f'Create dataset from NFT collection: {FLAGS.name}')
+
+    print(f'  | Save traits')
+    save_traits(FLAGS.name)
+
     print(f'  | Item range: [{FLAGS.start} - {FLAGS.end}]')
 
     index = FLAGS.start
