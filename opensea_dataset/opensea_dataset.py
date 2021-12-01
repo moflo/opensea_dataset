@@ -27,14 +27,14 @@ class opensea_dataset(tfds.core.GeneratorBasedBuilder):
     )
 
   def _split_generators(self, dl_manager: tfds.download.DownloadManager):
-    # path = dl_manager.download_and_extract('https://s3.amazonaws.com/pytorch-tutorial-assets/img_align_celeba.zip')
-    path = Path(os.path.dirname(__file__))
+    path = dl_manager.download_and_extract('https://github.com/moflo/opensea_dataset/releases/download/v0.0.1/chain_runners_dataset.zip')
+#     path = Path(os.path.dirname(__file__))
     return {
         'train': self._generate_examples(path),
     }
 
   def _generate_examples(self, path):
-    for f in path.glob('build/*.png'):
+    for f in path.glob('chain_runners_dataset/*.png'):
       image_id = os.path.basename(f).split('.')[0]
       key = random.getrandbits(256)
       record =  {
