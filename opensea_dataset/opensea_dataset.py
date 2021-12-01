@@ -1,6 +1,7 @@
 import tensorflow_datasets as tfds
 import os
 import random
+from pathlib import Path
 
 _DESCRIPTION = "celeblocal data loader"
 _CITATION = "TFDS Celeb_A"
@@ -27,7 +28,7 @@ class opensea_dataset(tfds.core.GeneratorBasedBuilder):
 
   def _split_generators(self, dl_manager: tfds.download.DownloadManager):
     # path = dl_manager.download_and_extract('https://s3.amazonaws.com/pytorch-tutorial-assets/img_align_celeba.zip')
-    path = os.path.dirname(__file__)
+    path = Path(os.path.dirname(__file__))
     return {
         'train': self._generate_examples(path),
     }
