@@ -27,7 +27,7 @@ class opensea_dataset(tfds.core.GeneratorBasedBuilder):
     )
 
   def _split_generators(self, dl_manager: tfds.download.DownloadManager):
-    path = dl_manager.download_and_extract('https://github.com/moflo/opensea_dataset/releases/download/v0.0.1/chain_runners_dataset.zip')
+    path = dl_manager.download_and_extract('https://github.com/moflo/opensea_dataset/releases/download/v0.0.2/chain_runners_dataset.zip')
 #     path = Path(os.path.dirname(__file__))
     return {
         'train': self._generate_examples(path),
