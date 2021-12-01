@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='opensea_dataset',
-    version='0.0.1',
+    version='0.0.2',
     description='TFDS Manual Loading of Celeb A dataset',
     url='git@github.com/moflo/opensea_dataset',
     author='MoFLo',
